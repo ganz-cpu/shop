@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shoo Shop - Static</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background:#f5f5f5;}
+header { background:#222; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center;}
+.cart { font-size:20px; cursor:pointer; }
+.container { padding:20px; }
+.product { background:white; padding:15px; border-radius:8px; margin-bottom:20px; display:flex; gap:15px;}
+.product img { width:120px; border-radius:8px; }
+.product button { background:#007bff; border:none; color:white; padding:10px 15px; border-radius:6px; cursor:pointer; }
+#paymentBox { background:white; padding:20px; border-radius:8px; margin-top:20px; display:none;}
+.whatsapp { background:green; display:block; margin-top:15px; color:white; padding:10px; border-radius:6px; text-align:center; text-decoration:none; font-weight:bold;}
+</style>
+</head>
+<body>
+<header>
+  <div><b>Shoo Shop</b></div>
+  <div class="cart">🛒 Keranjang (<span id="count">0</span>)</div>
+</header>
+
+<div class="container">
+  <div class="product">
+    <img src="https://via.placeholder.com/120">
+    <div>
+      <h3>Produk A</h3>
+      <p>Harga: Rp 50.000</p>
+      <button onclick="addCart('Produk A', 50000)">Tambah ke Keranjang</button>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/120">
+    <div>
+      <h3>Produk B</h3>
+      <p>Harga: Rp 30.000</p>
+      <button onclick="addCart('Produk B', 30000)">Tambah ke Keranjang</button>
+    </div>
+  </div>
+
+  <div id="paymentBox">
+    <h3>Metode Pembayaran</h3>
+    <p><b>DANA:</b> 083895332832</p>
+    <p><b>GOPAY:</b> 083852308484</p>
+    <a id="wa" class="whatsapp" target="_blank">Chat WhatsApp</a>
+  </div>
+</div>
+
+<script>
+let items = [];
+function addCart(name, price){
+  items.push({name, price});
+  document.getElementById("count").innerText = items.length;
+  alert(name + " ditambahkan");
+  document.getElementById("paymentBox").style.display = "block";
+  let total = items.reduce((a,b)=>a+b.price,0);
+  let text = `Halo kak, saya mau checkout.%0A%0AProduk:%0A` + items.map(i=>"- "+i.name+" | Rp "+i.price).join("%0A") + `%0A%0ATotal: Rp ` + total;
+  document.getElementById("wa").href = "https://wa.me/6283852308484?text=" + text;
+}
+</script>
+</body>
+</html>
